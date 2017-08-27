@@ -11,6 +11,10 @@ namespace TextParser.Models
     [XmlRoot(Namespace = "", IsNullable = false)]
     public class Text
     {
+        public Text()
+        {
+            Sentences = new List<Sentence>();
+        }
         /// <remarks/>
         [XmlArray("Sentences")]
         [XmlArrayItem("Sentece")]

@@ -20,9 +20,9 @@ namespace TextParser.Models
             result += string.Join(Environment.NewLine, text.Sentences.Select(
                 (sentence, index) => nameof(Sentence) + " " + (index + 1) + "," + string.Join(separator, sentence
                                          .Words
-                                         .Select(f => " " + (Regex.Replace(
+                                         .Select(f => " " + Regex.Replace(
                                                           Convert.ToString(f.ToString()),
-                                                          @"\t|\n|\r", "")).Trim())
+                                                          @"\t|\n|\r", "").Trim())
                                          .ToArray())));
 
             return result;
