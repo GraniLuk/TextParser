@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace TextParser.Tests
+namespace TextParser.Models
 {
     public class Sentence
     {

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Web.UI.WebControls;
-using System.Xml;
-using System.Xml.Linq;
 using NUnit.Framework;
+using TextParser.Models;
 
 namespace TextParser.Tests
 {

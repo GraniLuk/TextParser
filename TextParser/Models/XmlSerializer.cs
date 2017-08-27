@@ -1,7 +1,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace TextParser.Tests
+namespace TextParser.Models
 {
     public class XmlSerializer
     {

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using TextParser.Models;
 
 namespace TextParser.Tests
 {
@@ -15,46 +17,85 @@ namespace TextParser.Tests
         [Test]
         public void ParseSimleClassToCsv()
         {
-            var text = new Text { Sentences = new List<Sentence>() { new Sentence() { Words = new List<string>() { "a", "had", "lamb", "little", "Mary" } } } };
+            var text = new Text
+            {
+                Sentences = new List<Sentence>()
+                {
+                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}}
+                }
+            };
 
-            const string expected = "<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Text>\r\n  <Sentences>\r\n    <Sentece>\r\n      <Words>\r\n        <Word>a</Word>\r\n        <Word>had</Word>\r\n        <Word>lamb</Word>\r\n        <Word>little</Word>\r\n        <Word>Mary</Word>\r\n      </Words>\r\n    </Sentece>\r\n  </Sentences>\r\n</Text>";
+            const string expected =
+                ", Word 1, Word 2, Word 3, Word 4, Word 5\r\nSentence 1, a, had, lamb, little, Mary";
 
-            var xmlParser = new CsvSerializer();
-
-            var result = CsvSerializer.Serialize(text,",",true);
+            var result = CsvSerializer.Serialize(text);
 
             Assert.AreEqual(expected, result);
         }
 
-        public class CsvSerializer
+        [Test]
+        public void ParseFullExampleToCsv()
         {
-            public static IEnumerable<string> Serialize<T>(IEnumerable<T> objectlist, string separator = ",",
-                bool header = true)
+            var text = new Text()
             {
-                var fields = typeof(T).GetFields();
-                var properties = typeof(T).GetProperties();
-
-                if (header)
+                Sentences = new List<Sentence>()
                 {
-                    var str1 = String.Join(separator,
-                        fields.Select(f => f.Name).Concat(properties.Select(p => p.Name)).ToArray());
-                    str1 = str1 + Environment.NewLine;
-                    yield return str1;
+                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}},
+                    new Sentence()
+                    {
+                        Words = new List<string>() {"Aesop", "and", "called", "came", "for", "Peter", "the", "wolf"}
+                    },
+                    new Sentence() {Words = new List<string>() {"Cinderella", "likes", "shoes"}}
                 }
-                foreach (var o in objectlist)
-                {
-                    //regex is to remove any misplaced returns or tabs that would
-                    //really mess up a csv conversion.
-                    var str2 = string.Join(separator, fields
-                        .Select(f => (Regex.Replace(Convert.ToString(f.GetValue(o)), @"\t|\n|\r", "") ?? "").Trim())
-                        .Concat(properties.Select(
-                            p => (Regex.Replace(Convert.ToString(p.GetValue(o, null)), @"\t|\n|\r", "") ?? "").Trim()))
-                        .ToArray());
+            };
 
-                    str2 = str2 + Environment.NewLine;
-                    yield return str2;
+            const string expected =
+                ", Word 1, Word 2, Word 3, Word 4, Word 5, Word 6, Word 7, Word 8\r\nSentence 1, a, had, lamb, little, Mary\r\nSentence 2, Aesop, and, called, came, for, Peter, the, wolf\r\nSentence 3, Cinderella, likes, shoes";
+
+            var result = CsvSerializer.Serialize(text);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void GetHeader()
+        {
+            var text = new Text
+            {
+                Sentences = new List<Sentence>()
+                {
+                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}}
                 }
-            }
+            };
+
+            const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5";
+
+            var result = CsvSerializer.GetHeader(text);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void GetHeaderForLongestSentenceInTheMiddle()
+        {
+            var text = new Text()
+            {
+                Sentences = new List<Sentence>()
+                {
+                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}},
+                    new Sentence()
+                    {
+                        Words = new List<string>() {"Aesop", "and", "called", "came", "for", "Peter", "the", "wolf"}
+                    },
+                    new Sentence() {Words = new List<string>() {"Cinderella", "likes", "shoes"}}
+                }
+            };
+
+            const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5, Word 6, Word 7, Word 8";
+
+            var result = CsvSerializer.GetHeader(text);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }

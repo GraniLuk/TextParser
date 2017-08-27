@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace TextParser.Tests
+namespace TextParser.Models
 {
     /// <remarks/>
     [Serializable()]
@@ -16,6 +16,8 @@ namespace TextParser.Tests
         [XmlArrayItem("Sentece")]
         // [XmlArrayItemAttribute("Sentence", typeof(Sentence), IsNullable = false)]
         public List<Sentence> Sentences { get; set; }
-
+        public string Input { get; set; }
     }
+
+    
 }
