@@ -4,22 +4,16 @@ using TextParser.Models;
 
 namespace TextParser.Parsers
 {
-    public class XmlParser
+    public class XmlParser : IParser
     {
-        private readonly Text _text;
-
-        public XmlParser(Text text)
-        {
-            _text = text;
-        }
-        public string Parse()
+        public string Parse(Text text)
         {
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
             var serializer = new XmlSerializer(typeof(Text), new XmlRootAttribute(nameof(Text)));
             using (var textWriter = new StringWriter())
             {
-                serializer.Serialize(textWriter, _text,ns);
+                serializer.Serialize(textWriter, text, ns);
                 return textWriter.ToString();
             }
         }

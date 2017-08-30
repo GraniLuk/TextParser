@@ -24,16 +24,9 @@ namespace TextParser.Models
         [XmlArrayItem("Sentece")]
         public List<Sentence> Sentences { get; set; }
 
-        public string ToXml()
+        public string ParseTo(IParser parser)
         {
-            return new XmlParser(this).Parse();
-        }
-
-        public string ToCsv()
-        {
-            return new CsvParser(this).Parse();
+            return parser.Parse(this);
         }
     }
-
-    
 }

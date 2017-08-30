@@ -15,7 +15,7 @@ namespace TextParser.Tests
 
             const string expected = "<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Text>\r\n  <Sentences>\r\n    <Sentece>\r\n      <Words>\r\n        <Word>a</Word>\r\n        <Word>had</Word>\r\n        <Word>lamb</Word>\r\n        <Word>little</Word>\r\n        <Word>Mary</Word>\r\n      </Words>\r\n    </Sentece>\r\n  </Sentences>\r\n</Text>";
 
-            var result = new XmlParser(text).Parse();
+            var result = text.ParseTo(new XmlParser());
 
             Assert.AreEqual(expected,result);
         }
@@ -35,7 +35,7 @@ namespace TextParser.Tests
 
             var expected = Properties.Examples.xmlResult;
 
-            var result = new XmlParser(text).Parse();
+            var result = text.ParseTo(new XmlParser());
 
             Assert.AreEqual(expected, result);
         }

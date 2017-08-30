@@ -5,25 +5,27 @@ using TextParser.Models;
 
 namespace TextParser.Parsers
 {
-    public class CsvParser
+    public class CsvParser : IParser
     {
-        private readonly Text _text;
+        private readonly string _separator;
+        private readonly bool _header;
 
-        public CsvParser(Text text)
+        public CsvParser(string separator = ",", bool header = true)
         {
-            _text = text;
+            _separator = separator;
+            _header = header;
         }
-        public string Parse(string separator = ",", bool header = true)
+        public string Parse(Text text)
         {
             var result = string.Empty;
-            if (header)
+            if (_header)
             {
-                result += GetHeader(separator);
+                result += GetHeader(text, _separator);
                 result += Environment.NewLine;
             }
 
-            result += string.Join(Environment.NewLine, _text.Sentences.Select(
-                (sentence, index) => nameof(Sentence) + " " + (index + 1) + separator + string.Join(separator, sentence
+            result += string.Join(Environment.NewLine, text.Sentences.Select(
+                (sentence, index) => nameof(Sentence) + " " + (index + 1) + _separator + string.Join(_separator, sentence
                                          .Words
                                          .Select(f => " " + Regex.Replace(
                                                           Convert.ToString(f.ToString()),
@@ -33,12 +35,12 @@ namespace TextParser.Parsers
             return result;
         }
 
-        public string GetHeader(string separator = ",")
+        public string GetHeader(Text text,string separator = ",")
         {
             const string headerName = " Word ";
-            var sentenceWithMostWords = _text.Sentences.OrderByDescending(a => a.Words.Count).FirstOrDefault();
+            var sentenceWithMostWords = text.Sentences.OrderByDescending(a => a.Words.Count).FirstOrDefault();
             return sentenceWithMostWords != null ? 
-                separator + string.Join(separator, sentenceWithMostWords.Words.Select((value, index) =>
+                separator + string.Join(_separator, sentenceWithMostWords.Words.Select((value, index) =>
                 headerName+ (index + 1))) 
                 : string.Empty;
         }

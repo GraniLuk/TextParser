@@ -17,16 +17,16 @@ namespace TextParser.Controllers
         [MultipleButton(Name = "action", Argument = "ToXml")]
         public ActionResult ToXml(InputForm inputForm)
         {
-            var xmlSerializer = new XmlParser(new Text(inputForm.Input));
-            return Content(xmlSerializer.Parse(), "text/xml");
+            var text = new Text(inputForm.Input);
+            return Content(text.ParseTo(new XmlParser()), "text/xml");
         }
 
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "ToCsv")]
         public ActionResult ToCsv(InputForm inputForm)
         {
-            var csvSerializer = new CsvParser(new Text(inputForm.Input));
-            return Content(csvSerializer.Parse(), "text/richtext");
+            var text = new Text(inputForm.Input);
+            return Content(text.ParseTo(new CsvParser()), "text/richtext");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace TextParser.Tests
             const string expected =
                 ", Word 1, Word 2, Word 3, Word 4, Word 5\r\nSentence 1, a, had, lamb, little, Mary";
 
-            var result = new CsvParser(text).Parse();
+            var result = text.ParseTo(new CsvParser());
 
             Assert.AreEqual(expected, result);
         }
@@ -46,7 +46,7 @@ namespace TextParser.Tests
             const string expected =
                 ", Word 1, Word 2, Word 3, Word 4, Word 5, Word 6, Word 7, Word 8\r\nSentence 1, a, had, lamb, little, Mary\r\nSentence 2, Aesop, and, called, came, for, Peter, the, wolf\r\nSentence 3, Cinderella, likes, shoes";
 
-            var result = new CsvParser(text).Parse();
+            var result = text.ParseTo(new CsvParser());
 
             Assert.AreEqual(expected, result);
         }
@@ -64,7 +64,7 @@ namespace TextParser.Tests
 
             const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5";
 
-            var result = new CsvParser(text).GetHeader();
+            var result = new CsvParser().GetHeader(text);
 
             Assert.AreEqual(expected, result);
         }
@@ -87,7 +87,7 @@ namespace TextParser.Tests
 
             const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5, Word 6, Word 7, Word 8";
 
-            var result = new CsvParser(text).GetHeader();
+            var result = new CsvParser().GetHeader(text);
 
             Assert.AreEqual(expected, result);
         }

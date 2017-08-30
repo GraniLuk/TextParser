@@ -9,14 +9,12 @@ namespace TextParser.Controllers
         [HttpPost]
         public string ToXml(string input)
         {
-            var xmlSerializer = new XmlParser(new Text(input));
-            return xmlSerializer.Parse();
+            return new Text(input).ParseTo(new XmlParser());
         }
         [HttpPost]
         public string ToCsv(string input)
         {
-            var csvParser = new CsvParser(new Text(input));
-            return csvParser.Parse();
+            return new Text(input).ParseTo(new CsvParser());
         }
     }
 }
