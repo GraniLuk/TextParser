@@ -122,6 +122,7 @@
     <Compile Include="Attributes\MultipleButtonAttribute.cs" />
     <Compile Include="Controllers\TextController.cs" />
     <Compile Include="Controllers\WebController.cs" />
+    <Compile Include="Extensions\StringWriterWithEncoding.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

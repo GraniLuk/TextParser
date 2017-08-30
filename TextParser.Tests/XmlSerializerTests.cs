@@ -13,7 +13,7 @@ namespace TextParser.Tests
         {
             var text = new Text("") {Sentences = new List<Sentence>(){ new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}}}};
 
-            const string expected = "<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Text>\r\n  <Sentences>\r\n    <Sentece>\r\n      <Words>\r\n        <Word>a</Word>\r\n        <Word>had</Word>\r\n        <Word>lamb</Word>\r\n        <Word>little</Word>\r\n        <Word>Mary</Word>\r\n      </Words>\r\n    </Sentece>\r\n  </Sentences>\r\n</Text>";
+            const string expected = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Text>\r\n  <Sentences>\r\n    <Sentece>\r\n      <Words>\r\n        <Word>a</Word>\r\n        <Word>had</Word>\r\n        <Word>lamb</Word>\r\n        <Word>little</Word>\r\n        <Word>Mary</Word>\r\n      </Words>\r\n    </Sentece>\r\n  </Sentences>\r\n</Text>";
 
             var result = text.ParseTo(new XmlParser());
 

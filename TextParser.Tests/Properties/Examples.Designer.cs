@@ -61,7 +61,7 @@ namespace TextParser.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;Text&gt;
         ///  &lt;Sentences&gt;
         ///    &lt;Sentece&gt;
@@ -83,7 +83,7 @@ namespace TextParser.Tests.Properties {
         ///        &lt;Word&gt;Peter&lt;/Word&gt;
         ///        &lt;Word&gt;the&lt;/Word&gt;
         ///        &lt;Word&gt;wolf&lt;/Word&gt;
-        ///       [rest of string was truncated]&quot;;.
+        ///      &lt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string xmlResult {
             get {
