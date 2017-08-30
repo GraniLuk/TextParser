@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TextParser.Models;
 
-namespace TextParser.Models
+namespace TextParser.Parsers
 {
-    public class CsvSerializer
+    public class CsvParser
     {
         private readonly Text _text;
 
-        public CsvSerializer(Text text)
+        public CsvParser(Text text)
         {
             _text = text;
         }
-        public string Serialize(string separator = ",", bool header = true)
+        public string Parse(string separator = ",", bool header = true)
         {
             var result = string.Empty;
             if (header)

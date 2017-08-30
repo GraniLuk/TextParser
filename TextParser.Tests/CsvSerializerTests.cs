@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using TextParser.Models;
+using TextParser.Parsers;
 
 namespace TextParser.Tests
 {
     [TestFixture]
-    class CsvSerializerTests
+    internal class CsvSerializerTests
     {
         [Test]
         public void ParseSimleClassToCsv()
@@ -28,7 +22,7 @@ namespace TextParser.Tests
             const string expected =
                 ", Word 1, Word 2, Word 3, Word 4, Word 5\r\nSentence 1, a, had, lamb, little, Mary";
 
-            var result = new CsvSerializer(text).Serialize();
+            var result = new CsvParser(text).Parse();
 
             Assert.AreEqual(expected, result);
         }
@@ -52,7 +46,7 @@ namespace TextParser.Tests
             const string expected =
                 ", Word 1, Word 2, Word 3, Word 4, Word 5, Word 6, Word 7, Word 8\r\nSentence 1, a, had, lamb, little, Mary\r\nSentence 2, Aesop, and, called, came, for, Peter, the, wolf\r\nSentence 3, Cinderella, likes, shoes";
 
-            var result = new CsvSerializer(text).Serialize();
+            var result = new CsvParser(text).Parse();
 
             Assert.AreEqual(expected, result);
         }
@@ -70,7 +64,7 @@ namespace TextParser.Tests
 
             const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5";
 
-            var result = new CsvSerializer(text).GetHeader();
+            var result = new CsvParser(text).GetHeader();
 
             Assert.AreEqual(expected, result);
         }
@@ -93,7 +87,7 @@ namespace TextParser.Tests
 
             const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5, Word 6, Word 7, Word 8";
 
-            var result = new CsvSerializer(text).GetHeader();
+            var result = new CsvParser(text).GetHeader();
 
             Assert.AreEqual(expected, result);
         }

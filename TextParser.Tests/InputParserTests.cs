@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using TextParser.Models;
 
 namespace TextParser.Tests
 {
     [TestFixture()]
-    class InputParserTests
+    internal class InputParserTests
     {
         [Test]
         public void CreateTextClassFromStringInput()
@@ -25,8 +22,8 @@ namespace TextParser.Tests
                     }
             };
 
-            var inputParser = new InputParser();
-            var result = inputParser.Parse(input);
+            var inputParser = new Parsers.TextParser(input);
+            var result = inputParser.Parse();
 
             for (var i = 0; i < expected.Sentences.Count; i++)
             {
@@ -50,8 +47,8 @@ namespace TextParser.Tests
                 }
             };
 
-            var inputParser = new InputParser();
-            var result = inputParser.Parse(input);
+            var inputParser = new Parsers.TextParser(input);
+            var result = inputParser.Parse();
 
             for (var i = 0; i < expected.Sentences.Count; i++)
             {
@@ -65,10 +62,10 @@ namespace TextParser.Tests
         {
             const string input = "\"  Mary   had a little  lamb  . \r\n\r\n\r\n  Peter   called for the wolf   ,  and Aesop came .\r\n Cinderella  likes shoes.\r\n";
 
-            var expected = 3;
+            const int expected = 3;
 
-            var inputParser = new InputParser();
-            var result = inputParser.Parse(input);
+            var inputParser = new Parsers.TextParser(input);
+            var result = inputParser.Parse();
 
             Assert.AreEqual(expected, result.Sentences.Count);
 
@@ -87,8 +84,8 @@ namespace TextParser.Tests
                 }
             };
 
-            var inputParser = new InputParser();
-            var result = inputParser.Parse(input);
+            var inputParser = new Parsers.TextParser(input);
+            var result = inputParser.Parse();
 
             Assert.AreEqual(expected.Sentences[0].Words, result.Sentences[0].Words);
         }
@@ -100,33 +97,10 @@ namespace TextParser.Tests
 
             const int expected = 3;
 
-            var inputParser = new InputParser();
-            var result = inputParser.Parse(input);
+            var inputParser = new Parsers.TextParser(input);
+            var result = inputParser.Parse();
 
             Assert.AreEqual(expected, result.Sentences.Count);
-        }
-    }
-
-    internal class InputParser
-    {
-        public Text Parse(string input)
-        {
-            const char sentenceDelimiter = '.';
-            var text = new Text();
-            foreach (var sentence in input.Split(sentenceDelimiter).ToList())
-            {
-                if (string.IsNullOrWhiteSpace(sentence)) continue;
-                const char wordDelimiter = ' ';
-                var newSentence = new Sentence();
-                foreach (var word in sentence.Split(wordDelimiter).ToList().OrderBy(x=>x.ToString()))
-                {
-                    var wordWithoutDelimiterAndWhiteSpaces = Regex.Replace(word, @"\t|\n|\r|,", "");
-                    if (string.IsNullOrEmpty(wordWithoutDelimiterAndWhiteSpaces)) continue;
-                    newSentence.Words.Add(wordWithoutDelimiterAndWhiteSpaces);
-                }
-                text.Sentences.Add(newSentence);
-            }
-            return text;
         }
     }
 }

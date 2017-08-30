@@ -1,21 +1,22 @@
 using System.IO;
 using System.Xml.Serialization;
+using TextParser.Models;
 
-namespace TextParser.Models
+namespace TextParser.Parsers
 {
-    public class XmlSerializer
+    public class XmlParser
     {
         private readonly Text _text;
 
-        public XmlSerializer(Text text)
+        public XmlParser(Text text)
         {
             _text = text;
         }
-        public string Serialize()
+        public string Parse()
         {
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
-            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(Text), new XmlRootAttribute(nameof(Text)));
+            var serializer = new XmlSerializer(typeof(Text), new XmlRootAttribute(nameof(Text)));
             using (var textWriter = new StringWriter())
             {
                 serializer.Serialize(textWriter, _text,ns);
