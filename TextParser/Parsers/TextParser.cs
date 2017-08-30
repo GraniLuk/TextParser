@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TextParser.Models;
 
@@ -12,10 +13,10 @@ namespace TextParser.Parsers
         {
             _input = input;
         }
-            public Text Parse()
+            public List<Sentence> Parse()
             {
                 const char sentenceDelimiter = '.';
-                var text = new Text();
+                var sentences = new List<Sentence>();
                 foreach (var sentence in _input.Split(sentenceDelimiter).ToList())
                 {
                     if (string.IsNullOrWhiteSpace(sentence)) continue;
@@ -27,9 +28,9 @@ namespace TextParser.Parsers
                         if (string.IsNullOrEmpty(wordWithoutDelimiterAndWhiteSpaces)) continue;
                         newSentence.Words.Add(wordWithoutDelimiterAndWhiteSpaces);
                     }
-                    text.Sentences.Add(newSentence);
+                    sentences.Add(newSentence);
                 }
-                return text;
+                return sentences;
             }
         }
 }
