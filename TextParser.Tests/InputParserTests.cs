@@ -12,7 +12,7 @@ namespace TextParser.Tests
         {
             const string input = "Mary had a little lamb. Peter called for the wolf, and Aesop came. \r\nCinderella likes shoes.\r\n";
 
-            var expected = new Text()
+            var expected = new Text("")
             {
                 Sentences = new List<Sentence>()
                     {
@@ -22,8 +22,7 @@ namespace TextParser.Tests
                     }
             };
 
-            var inputParser = new Parsers.TextParser(input);
-            var result = inputParser.Parse();
+            var result = new Text(input);
 
             for (var i = 0; i < expected.Sentences.Count; i++)
             {
@@ -37,7 +36,7 @@ namespace TextParser.Tests
         {
             const string input = "  Mary   had a little  lamb  . \r\n\r\n\r\n  Peter   called for the wolf   ,  and Aesop came .\r\n Cinderella  likes shoes.\r\n";
 
-            var expected = new Text()
+            var expected = new Text("")
             {
                 Sentences = new List<Sentence>()
                 {
@@ -47,8 +46,7 @@ namespace TextParser.Tests
                 }
             };
 
-            var inputParser = new Parsers.TextParser(input);
-            var result = inputParser.Parse();
+            var result = new Text(input);
 
             for (var i = 0; i < expected.Sentences.Count; i++)
             {
@@ -64,8 +62,7 @@ namespace TextParser.Tests
 
             const int expected = 3;
 
-            var inputParser = new Parsers.TextParser(input);
-            var result = inputParser.Parse();
+            var result = new Text(input);
 
             Assert.AreEqual(expected, result.Sentences.Count);
 
@@ -76,7 +73,7 @@ namespace TextParser.Tests
         {
             const string input = "Mary had a little lamb.";
 
-            var expected = new Text()
+            var expected = new Text("")
             {
                 Sentences = new List<Sentence>()
                 {
@@ -84,8 +81,7 @@ namespace TextParser.Tests
                 }
             };
 
-            var inputParser = new Parsers.TextParser(input);
-            var result = inputParser.Parse();
+            var result = new Text(input);
 
             Assert.AreEqual(expected.Sentences[0].Words, result.Sentences[0].Words);
         }
@@ -97,8 +93,7 @@ namespace TextParser.Tests
 
             const int expected = 3;
 
-            var inputParser = new Parsers.TextParser(input);
-            var result = inputParser.Parse();
+            var result = new Text(input);
 
             Assert.AreEqual(expected, result.Sentences.Count);
         }

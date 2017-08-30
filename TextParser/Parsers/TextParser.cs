@@ -13,7 +13,7 @@ namespace TextParser.Parsers
         {
             _input = input;
         }
-            public List<Sentence> Parse()
+            public List<Sentence> GetSenteces()
             {
                 const char sentenceDelimiter = '.';
                 var sentences = new List<Sentence>();

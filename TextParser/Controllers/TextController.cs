@@ -17,8 +17,7 @@ namespace TextParser.Controllers
         [MultipleButton(Name = "action", Argument = "ToXml")]
         public ActionResult ToXml(InputForm inputForm)
         {
-            var inputParser = new Parsers.TextParser(inputForm.Input);
-            var xmlSerializer = new XmlParser(inputParser.Parse());
+            var xmlSerializer = new XmlParser(new Text(inputForm.Input));
             return Content(xmlSerializer.Parse(), "text/xml");
         }
 
@@ -26,8 +25,7 @@ namespace TextParser.Controllers
         [MultipleButton(Name = "action", Argument = "ToCsv")]
         public ActionResult ToCsv(InputForm inputForm)
         {
-            var inputParser = new Parsers.TextParser(inputForm.Input);
-            var csvSerializer = new CsvParser(inputParser.Parse());
+            var csvSerializer = new CsvParser(new Text(inputForm.Input));
             return Content(csvSerializer.Parse(), "text/richtext");
         }
     }

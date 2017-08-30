@@ -11,7 +11,7 @@ namespace TextParser.Tests
         [Test]
         public void ParseSimleClassToCsv()
         {
-            var text = new Text
+            var text = new Text("Mary had a little lamb")
             {
                 Sentences = new List<Sentence>()
                 {
@@ -30,7 +30,7 @@ namespace TextParser.Tests
         [Test]
         public void ParseFullExampleToCsv()
         {
-            var text = new Text()
+            var text = new Text("")
             {
                 Sentences = new List<Sentence>()
                 {
@@ -54,7 +54,7 @@ namespace TextParser.Tests
         [Test]
         public void GetHeader()
         {
-            var text = new Text
+            var text = new Text("")
             {
                 Sentences = new List<Sentence>()
                 {
@@ -72,7 +72,7 @@ namespace TextParser.Tests
         [Test]
         public void GetHeaderForLongestSentenceInTheMiddle()
         {
-            var text = new Text()
+            var text = new Text("")
             {
                 Sentences = new List<Sentence>()
                 {

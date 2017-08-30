@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using TextParser.Parsers;
 
 namespace TextParser.Models
 {
@@ -11,13 +12,27 @@ namespace TextParser.Models
     [XmlRoot(Namespace = "", IsNullable = false)]
     public class Text
     {
+        public Text()
+        {
+            
+        }
         public Text(string input)
         {
-            Sentences = new List<Sentence>();
+            Sentences = new Parsers.TextParser(input).GetSenteces();
         }
         [XmlArray("Sentences")]
         [XmlArrayItem("Sentece")]
         public List<Sentence> Sentences { get; set; }
+
+        public string ToXml()
+        {
+            return new XmlParser(this).Parse();
+        }
+
+        public string ToCsv()
+        {
+            return new CsvParser(this).Parse();
+        }
     }
 
     

@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using TextParser.Models;
 using TextParser.Parsers;
 
 namespace TextParser.Controllers
@@ -8,15 +9,13 @@ namespace TextParser.Controllers
         [HttpPost]
         public string ToXml(string input)
         {
-            var inputParser = new Parsers.TextParser(input);
-            var xmlSerializer = new XmlParser(inputParser.Parse());
+            var xmlSerializer = new XmlParser(new Text(input));
             return xmlSerializer.Parse();
         }
         [HttpPost]
         public string ToCsv(string input)
         {
-            var inputParser = new Parsers.TextParser(input);
-            var csvParser = new CsvParser(inputParser.Parse());
+            var csvParser = new CsvParser(new Text(input));
             return csvParser.Parse();
         }
     }
