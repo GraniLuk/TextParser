@@ -11,13 +11,7 @@ namespace TextParser.Tests
         [Test]
         public void ParseSimleClassToCsv()
         {
-            var text = new Text("Mary had a little lamb")
-            {
-                Sentences = new List<Sentence>()
-                {
-                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}}
-                }
-            };
+            var text = new Text() {Input = "Mary had a little lamb."};
 
             const string expected =
                 ", Word 1, Word 2, Word 3, Word 4, Word 5\r\nSentence 1, a, had, lamb, little, Mary";
@@ -30,17 +24,10 @@ namespace TextParser.Tests
         [Test]
         public void ParseFullExampleToCsv()
         {
-            var text = new Text("")
+            var text = new Text()
             {
-                Sentences = new List<Sentence>()
-                {
-                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}},
-                    new Sentence()
-                    {
-                        Words = new List<string>() {"Aesop", "and", "called", "came", "for", "Peter", "the", "wolf"}
-                    },
-                    new Sentence() {Words = new List<string>() {"Cinderella", "likes", "shoes"}}
-                }
+                Input =
+                    "Mary had a little lamb. Peter called for the wolf, and Aesop came. \r\nCinderella likes shoes.\r\n"
             };
 
             const string expected =
@@ -54,13 +41,7 @@ namespace TextParser.Tests
         [Test]
         public void GetHeader()
         {
-            var text = new Text("")
-            {
-                Sentences = new List<Sentence>()
-                {
-                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}}
-                }
-            };
+            var text = new Text() { Input = "Mary had a little lamb." };
 
             const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5";
 
@@ -72,17 +53,10 @@ namespace TextParser.Tests
         [Test]
         public void GetHeaderForLongestSentenceInTheMiddle()
         {
-            var text = new Text("")
+            var text = new Text()
             {
-                Sentences = new List<Sentence>()
-                {
-                    new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}},
-                    new Sentence()
-                    {
-                        Words = new List<string>() {"Aesop", "and", "called", "came", "for", "Peter", "the", "wolf"}
-                    },
-                    new Sentence() {Words = new List<string>() {"Cinderella", "likes", "shoes"}}
-                }
+                Input =
+                    "Mary had a little lamb. Peter called for the wolf, and Aesop came. \r\nCinderella likes shoes.\r\n"
             };
 
             const string expected = ", Word 1, Word 2, Word 3, Word 4, Word 5, Word 6, Word 7, Word 8";

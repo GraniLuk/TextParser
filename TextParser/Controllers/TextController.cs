@@ -9,23 +9,21 @@ namespace TextParser.Controllers
     {
         public ActionResult Parser()
         {
-            var inputForm = new InputForm();
-            return View(inputForm);
+            var text = new Text();
+            return View(text);
         }
         // GET: Text
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "ToXml")]
-        public ActionResult ToXml(InputForm inputForm)
+        public ActionResult ToXml(Text text)
         {
-            var text = new Text(inputForm.Input);
             return Content(text.ParseTo(new XmlParser()), "text/xml");
         }
 
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "ToCsv")]
-        public ActionResult ToCsv(InputForm inputForm)
+        public ActionResult ToCsv(Text text)
         {
-            var text = new Text(inputForm.Input);
             return Content(text.ParseTo(new CsvParser()), "text/richtext");
         }
     }

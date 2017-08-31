@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using TextParser.Models;
 using TextParser.Parsers;
@@ -11,7 +12,7 @@ namespace TextParser.Tests
         [Test]
         public void SerializeSimpleClassText()
         {
-            var text = new Text("") {Sentences = new List<Sentence>(){ new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}}}};
+            var text = new Text() {Input = "Mary had a little lamb."};
 
             const string expected = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Text>\r\n  <Sentences>\r\n    <Sentece>\r\n      <Words>\r\n        <Word>a</Word>\r\n        <Word>had</Word>\r\n        <Word>lamb</Word>\r\n        <Word>little</Word>\r\n        <Word>Mary</Word>\r\n      </Words>\r\n    </Sentece>\r\n  </Sentences>\r\n</Text>";
 
@@ -23,14 +24,10 @@ namespace TextParser.Tests
         [Test]
         public void SerializeClassToGetExampleString()
         {
-            var text = new Text("")
+            var text = new Text()
             {
-                Sentences = new List<Sentence>()
-                {
-                    new Sentence() { Words = new List<string>() { "a", "had", "lamb", "little", "Mary" } },
-                    new Sentence() { Words = new List<string>() { "Aesop", "and", "called", "came", "for", "Peter", "the", "wolf" } },
-                    new Sentence() { Words = new List<string>() { "Cinderella", "likes", "shoes"} }
-                }
+                Input =
+                    "Mary had a little lamb. Peter called for the wolf, and Aesop came. \r\nCinderella likes shoes.\r\n"
             };
 
             var expected = Properties.Examples.xmlResult;

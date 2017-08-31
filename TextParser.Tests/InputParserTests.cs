@@ -12,23 +12,27 @@ namespace TextParser.Tests
         {
             const string input = "Mary had a little lamb. Peter called for the wolf, and Aesop came. \r\nCinderella likes shoes.\r\n";
 
-            var expected = new Text("")
+            var expected = new List<Sentence>()
             {
-                Sentences = new List<Sentence>()
-                    {
-                        new Sentence() { Words = new List<string>() { "a", "had", "lamb", "little", "Mary" } },
-                        new Sentence() { Words = new List<string>() { "Aesop", "and", "called", "came", "for", "Peter", "the", "wolf" } },
-                        new Sentence() { Words = new List<string>() { "Cinderella", "likes", "shoes"} }
-                    }
+                new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}},
+                new Sentence()
+                {
+                    Words = new List<string>() {"Aesop", "and", "called", "came", "for", "Peter", "the", "wolf"}
+                },
+                new Sentence() {Words = new List<string>() {"Cinderella", "likes", "shoes"}}
             };
+            
 
-            var result = new Text(input);
-
-            for (var i = 0; i < expected.Sentences.Count; i++)
+            var result = new Text()
             {
-                Assert.AreEqual(expected.Sentences[i].Words, result.Sentences[i].Words);
+                Input = input
+            }; 
+
+            for (var i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Words, result.Sentences[i].Words);
             }
-           
+
         }
 
         [Test]
@@ -36,21 +40,21 @@ namespace TextParser.Tests
         {
             const string input = "  Mary   had a little  lamb  . \r\n\r\n\r\n  Peter   called for the wolf   ,  and Aesop came .\r\n Cinderella  likes shoes.\r\n";
 
-            var expected = new Text("")
+            var expected = new List<Sentence>()
             {
-                Sentences = new List<Sentence>()
+                new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}},
+                new Sentence()
                 {
-                    new Sentence() { Words = new List<string>() { "a", "had", "lamb", "little", "Mary" } },
-                    new Sentence() { Words = new List<string>() { "Aesop", "and", "called", "came", "for", "Peter", "the", "wolf" } },
-                    new Sentence() { Words = new List<string>() { "Cinderella", "likes", "shoes"} }
-                }
+                    Words = new List<string>() {"Aesop", "and", "called", "came", "for", "Peter", "the", "wolf"}
+                },
+                new Sentence() {Words = new List<string>() {"Cinderella", "likes", "shoes"}}
             };
 
-            var result = new Text(input);
+            var result = new Text(){Input = input};
 
-            for (var i = 0; i < expected.Sentences.Count; i++)
+            for (var i = 0; i < expected.Count; i++)
             {
-                Assert.AreEqual(expected.Sentences[i].Words, result.Sentences[i].Words);
+                Assert.AreEqual(expected[i].Words, result.Sentences[i].Words);
             }
 
         }
@@ -62,7 +66,7 @@ namespace TextParser.Tests
 
             const int expected = 3;
 
-            var result = new Text(input);
+            var result = new Text(){Input = input};
 
             Assert.AreEqual(expected, result.Sentences.Count);
 
@@ -73,17 +77,15 @@ namespace TextParser.Tests
         {
             const string input = "Mary had a little lamb.";
 
-            var expected = new Text("")
+            var expected = new List<Sentence>()
             {
-                Sentences = new List<Sentence>()
-                {
-                    new Sentence() { Words = new List<string>() { "a", "had", "lamb", "little", "Mary" } }
-                }
+                new Sentence() {Words = new List<string>() {"a", "had", "lamb", "little", "Mary"}}
             };
+            
 
-            var result = new Text(input);
+            var result = new Text(){Input = input};
 
-            Assert.AreEqual(expected.Sentences[0].Words, result.Sentences[0].Words);
+            Assert.AreEqual(expected[0].Words, result.Sentences[0].Words);
         }
 
         [Test]
@@ -93,7 +95,7 @@ namespace TextParser.Tests
 
             const int expected = 3;
 
-            var result = new Text(input);
+            var result = new Text(){Input = input};
 
             Assert.AreEqual(expected, result.Sentences.Count);
         }
