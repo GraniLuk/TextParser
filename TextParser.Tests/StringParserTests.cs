@@ -5,7 +5,7 @@ using TextParser.Models;
 namespace TextParser.Tests
 {
     [TestFixture()]
-    internal class InputParserTests
+    internal class StringParserTests
     {
         [Test]
         public void CreateTextClassFromStringInput()

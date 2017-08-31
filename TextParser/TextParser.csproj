@@ -131,7 +131,7 @@
     <Compile Include="Models\Sentence.cs" />
     <Compile Include="Models\Text.cs" />
     <Compile Include="Parsers\XmlParser.cs" />
-    <Compile Include="Parsers\TextParser.cs" />
+    <Compile Include="Parsers\StringParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

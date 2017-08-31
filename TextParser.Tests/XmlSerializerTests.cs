@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Moq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TextParser.Models;
 using TextParser.Parsers;
 

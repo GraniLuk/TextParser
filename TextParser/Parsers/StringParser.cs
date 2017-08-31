@@ -5,11 +5,11 @@ using TextParser.Models;
 
 namespace TextParser.Parsers
 {
-    public class TextParser
+    public class StringParser
     {
         private readonly string _input;
 
-        public TextParser(string input)
+        public StringParser(string input)
         {
             _input = input;
         }

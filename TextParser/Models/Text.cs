@@ -7,18 +7,17 @@ using TextParser.Parsers;
 namespace TextParser.Models
 {
     /// <remarks/>
-    [Serializable()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [XmlType(AnonymousType = true)]
-    [XmlRoot(Namespace = "", IsNullable = false)]
+    [Serializable(), System.ComponentModel.DesignerCategory("code"), XmlType(AnonymousType = true),
+     XmlRoot(Namespace = "", IsNullable = false)]
     public class Text
     {
-        [XmlArray("Sentences")]
-        [XmlArrayItem("Sentece")]
-        public List<Sentence> Sentences => new Parsers.TextParser(Input).GetSenteces();
         [XmlIgnore]
         [DataType(DataType.MultilineText)]
         public string Input { get; set; }
+
+        [XmlArray("Sentences")]
+        [XmlArrayItem("Sentece")]
+        public List<Sentence> Sentences => new StringParser(Input).GetSenteces();
 
         public string ParseTo(IParser parser)
         {
